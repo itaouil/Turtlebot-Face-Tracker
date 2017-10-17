@@ -12,4 +12,4 @@ The technologies used for the project consists in the ROS platform and its many 
 
 The following is a high-level schematic that shows how are the building blocks of the project connected:
 
-![alt]()
+![alt](https://github.com/itaouil/Turtlebot-Face-Tracker/blob/master/blocks.png)
