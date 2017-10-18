@@ -1,0 +1,8 @@
+input_image_topic: "/camera/image_raw"
+output_image_topic: "/face_detector/raw_image"
+haar_file_face: "/home/robot/ros_robotics_projects_ws/src/face_tracker_pkg/data/face.xml"
+face_tracking: 1
+display_original_image: 1
+display_tracking_image: 1
+screenmaxx: 640
+center_offset: 100
