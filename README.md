@@ -6,7 +6,7 @@ The following is a personal project with the Turtlebot robot, which would be eas
 
 ## **Technologies**
 
-The technologies used for the project consists in the ROS platform and its many packages and OpenCV for the face detection process. The language of choice for the task is C++, however, a Python version could be added in the future.
+The technologies used for the project consists in the ROS platform and its many packages and OpenCV for the face detection process. The language of choice for the project is Python, and I hope to push a C++ version once the Python section is completed.
 
 ## **Diagram and small explanation**
 
