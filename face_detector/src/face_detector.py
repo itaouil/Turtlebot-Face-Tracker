@@ -52,6 +52,9 @@ class Face_Detector:
         except Exception as e:
             rospy.logwarn("Error during config loading: %s", e)
 
+        # Face classifier
+        self.face_classifier = cv2.CascadeClassifier(haar_file_face)
+
     # Callback (process image and detects face)
     def callback(self, image_raw):
 
@@ -60,9 +63,28 @@ class Face_Detector:
             cv_image = self.bridge.imgmsg_to_cv2(image_raw, "bgr8")
 
         except CvBridgeError as e:
-            rospy.logwarn("Error occured during image conversion: %s", e)
+            rospy.logwarn("Error occured during image conversion: %s", e
 
-        # Show image
-        cv2.namedWindow("Original Image")
-        cv2.imshow("Original Image", cv_image)
-        cv2.waitKey(5)
+        # Display original image
+        if display_original_image:
+            cv2.imshow("Original", image_raw)
+
+        # Get those faces in the image
+        self.detectAndDraw(cv_image)
+
+    # Detect faces and draw them
+    def detectAndDraw(self, cv_image):
+
+        # Convert cv_image to greyscale
+        image_gray = cv2.cvtColor(cv_image, cv2.COLOR_BGR2GRAY)
+
+        # Detect faces
+        faces = face_cascade.detectMultiScale(image_gray, 1.3, 5)
+
+        # Draw rectangles over faces
+        for (x,y,w,h) in faces:
+            cv2.rectangle(cv_image, (x,y), (x+w,y+h), (255,0,0), 2)
+
+        # Display tracking image
+        if display_tracking_image:
+            cv2.imshow("Tracking Image", cv_image)
