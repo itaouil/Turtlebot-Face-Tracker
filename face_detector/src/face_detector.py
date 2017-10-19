@@ -23,13 +23,13 @@ class Face_Detector:
         self.bridge = CvBridge()
 
         # Image transportation
-        self.image_sub = rospy.Subscriber("/camera/rgb/image_raw", Image, self.callback)
-        self.image_pub = rospy.Publisher("/face_centroid")
+        # self.image_sub = rospy.Subscriber("/camera/rgb/image_raw", Image, self.callback)
+        # self.image_pub = rospy.Publisher("/mobile_base/commands/velocity", Twist)
 
         # Config variables
-        screenmaxx              = ""
+        width                   = ""
+        height                  = ""
         center_offset           = ""
-        face_tracking           = ""
         haar_file_face          = ""
         input_image_topic       = ""
         output_image_topic      = ""
@@ -41,11 +41,9 @@ class Face_Detector:
             rospy.get_param("input_image_topic", input_image_topic)
             rospy.get_param("output_image_topic", output_image_topic)
             rospy.get_param("haar_file_face", haar_file_face)
-            rospy.get_param("face_tracking", face_tracking)
             rospy.get_param("display_original_image", display_original_image)
             rospy.get_param("display_tracking_image", display_tracking_image)
-            rospy.get_param("center_offset", center_offset)
-            rospy.get_param("screenmaxx", screenmaxx)
+            rospy.get_param("width", screenmaxx)
 
             rospy.loginfo("Configuration file loaded !")
 
@@ -88,3 +86,23 @@ class Face_Detector:
         # Display tracking image
         if display_tracking_image:
             cv2.imshow("Tracking Image", cv_image)
+
+# Main
+def main(args):
+
+    # Initialise node
+    rospy.init_node("face_tracker", anonymous=True)
+
+    # Face detector, boy !
+    ft = Face_Detector()
+
+    # Spin the node
+    try:
+        rospy.spin()
+    except KeyboardInterrupt:
+        print("Shutting downn node")
+
+    cv2.destroyAllWindows()
+
+if __name__ == "__main__":
+    main(sys.argv)
